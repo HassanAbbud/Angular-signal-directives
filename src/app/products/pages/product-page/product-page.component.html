@@ -1,11 +1,11 @@
 <h1>Add product</h1>
 <hr>
 
-<form >
+<form [formGroup]="myForm">
   <div class="row g-3 align-items-center mb-3">
 
     <div class="col-auto">
-      <label>Nombre:</label>
+      <label>Name:</label>
     </div>
 
     <div class="col-auto">
@@ -24,12 +24,14 @@
 
   <div class="row">
     <div class="col">
-      <button>
+      <button (click)="changeColor()" class="btn btn-primary">
         Change color
       </button>
 
     </div>
   </div>
 
-
 </form>
+
+<pre class="mt-5">{{ myForm.get('name')?.errors | json }}</pre>
+<p>Color: {{ color }}</p>
