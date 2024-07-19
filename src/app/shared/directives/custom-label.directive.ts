@@ -35,18 +35,54 @@ export class CustomLabelDirective {
     if ( !this.htmlElement )return;
 
     if ( !this._errors ) {
-      this.htmlElement.nativeElement.innerText = '';
+      this.htmlElement.nativeElement.innerText = 'Ready to submit!';
       return;
       }
 
     const errors = Object.keys(this._errors);
     console.log(errors)
 
-      if ( errors.includes('required') )  {
-        this.htmlElement.nativeElement.innerText = 'Este campo es requerido.';
-        return;
-      }
-    }
-    //TODO manage other errors
+    switch (true) {
+      case errors.includes('required'):
+        this.htmlElement.nativeElement.innerText = 'This field is required.';
+        break;
 
+      case errors.includes('minlength'):
+        const min = this._errors!['minlength']['requiredLength'];
+        const current = this._errors!['minlength']['actualLength'];
+
+        this.htmlElement.nativeElement.innerText = `Minimum ${current}/${min} characters.`;
+        break;
+
+      case errors.includes('email'):
+        this.htmlElement.nativeElement.innerText = 'The email is incorrect.';
+        break;
+
+      default:
+        break;
+    }
+
+    // if ( errors.includes('required') )  {
+    //   this.htmlElement.nativeElement.innerText = 'This field is required.';
+    //   return;
+    // }
+
+    // if ( errors.includes('minlength') )  {
+    //   const min = this._errors!['minlength']['requiredLength'];
+    //   const current = this._errors!['minlength']['actualLength'];
+
+    //   this.htmlElement.nativeElement.innerText = `Minimum ${current}/${ min } caracteres.`;
+    //   return;
+    // }
+
+    // if ( errors.includes('email') )  {
+    //   this.htmlElement.nativeElement.innerText = 'The email is incorrect.';
+    //   return;
+    // }
+
+    // switch (errors.includes('error')) {
+    //   case ('required'):
+    //     this.htmlElement.nativeElement.innerText = 'This field is required.';
+    // }
+  }
 }
