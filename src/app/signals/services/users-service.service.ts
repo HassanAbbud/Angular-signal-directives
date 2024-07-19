@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { catchError, map, Observable, tap } from 'rxjs';
 import { SingleUserResponse, User } from '../interfaces/user-request.interface';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class UsersServiceService {
     return this.http.get<SingleUserResponse>(`${this.baseUrl}/${id}`)
       .pipe(
         map(response => response.data),
-        tap ( console.log)
+        tap ( console.log),
       )
   }
 }
